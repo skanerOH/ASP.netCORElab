@@ -1,0 +1,120 @@
+﻿@model IEnumerable<ISTP_LABA_3.Models.Offer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Offers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <table>
+            <tr>
+                <th>
+                    Find by name:
+                </th>
+                <th>
+                    <input type="text" name="NameFilter" value="@ViewData["NameFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find by bank name:
+                </th>
+                <th>
+                    <input type="text" name="BankNameFilter" value="@ViewData["BankNameFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find by offer type:
+                </th>
+                <th>
+                    <input type="text" name="OfferTypeFilter" value="@ViewData["OfferTypeFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find by sum:
+                </th>
+                <th>
+                    <input type="number" name="SearchInt" value="@ViewData["IntFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="submit" value="Search" class="btn btn-default" />
+                </th>
+                <th>
+                    <a style="color:black" asp-action="Index">Back to full list</a>
+                </th>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["PercentageSortParam"]">@Html.DisplayNameFor(model=> model.Percentage)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition)
+            </th>
+            <td>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["MaxSortParam"]">@Html.DisplayNameFor(model => model.Condition.MaxSum)</a>
+            </td>
+            <td>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["MinSortParam"]">@Html.DisplayNameFor(model => model.Condition.MinSum)</a>
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.OfferType)
+            </th>
+            <th>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["BankSortParam"]">@Html.DisplayNameFor(model => model.Bank)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Percentage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition.Mark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition.MaxSum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition.MinSum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bank.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OfferID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OfferID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OfferID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

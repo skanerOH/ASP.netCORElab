@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ISTP_LABA_3.Models.Condition>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxSum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinSum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Special)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Special)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ConditionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ConditionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ConditionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
