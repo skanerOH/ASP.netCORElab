@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ContractID,OfferID,ClientID,Sum,SigningDate,FinishDate")] Contract contract, int oid, int sum)
+        public async Task<IActionResult> Create([Bind("ContractID,OfferID,ClientID,Sum,SigningDate,FinishDate")] Contract contract, int oid, int sum, DateTime sgndate, DateTime fnshdate)
         {
             var max = (from c in _context.Offers
                      where (c.OfferID == oid)
@@ -70,7 +70,9 @@ namespace WebApplication1.Controllers
                        select c.Condition.MinSum).Min();
 
             contract.OfferID = oid;
-            if ((ModelState.IsValid) && sum<=max && sum>=min)
+            contract.FinishDate = fnshdate;
+            contract.SigningDate = sgndate;
+            if ((ModelState.IsValid) && sum<=max && sum>=min && fnshdate>sgndate)
             {
                 _context.Add(contract);
                 await _context.SaveChangesAsync();
@@ -111,7 +113,15 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var max = (from c in _context.Offers
+                       where (c.OfferID == contract.OfferID)
+                       select c.Condition.MaxSum).Max();
+
+            var min = (from c in _context.Offers
+                       where (c.OfferID == contract.OfferID)
+                       select c.Condition.MinSum).Min();
+            if (ModelState.IsValid && contract.SigningDate<contract.FinishDate 
+                && max>contract.Sum && min<contract.Sum)
             {
                 try
                 {

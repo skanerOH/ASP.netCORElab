@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContractID" />
             <div class="form-group">
-                <label asp-for="OfferID" class="control-label"></label>
+                <label asp-for="OfferID" class="control-label">Offer name</label>
                 <select asp-for="OfferID" class="form-control" asp-items="ViewBag.OfferID"></select>
                 <span asp-validation-for="OfferID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClientID" class="control-label"></label>
+                <label asp-for="ClientID" class="control-label">Client name</label>
                 <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
                 <span asp-validation-for="ClientID" class="text-danger"></span>
             </div>
@@ -41,6 +41,7 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            <h6>*if sum is not valid to offer conditions or signing date is later then finish date, the contract will not be edited</h6>
         </form>
     </div>
 </div>
