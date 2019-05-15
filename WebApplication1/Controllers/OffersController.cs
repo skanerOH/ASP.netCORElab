@@ -26,11 +26,13 @@ namespace WebApplication1.Controllers
             ViewData["BankNameFilter"] = BankNameFilter;
             ViewData["OfferTypeFilter"] = OfferTypeFilter;
             ViewData["IntFilter"] = searchInt;
+
             ViewData["NameSortParam"] = sortOrder == "Name" ? "name_desc" : "Name";
             ViewData["PercentageSortParam"] = sortOrder == "Percentage" ? "percentage_desc" : "Percentage";
             ViewData["BankSortParam"] = sortOrder == "Bank" ? "bank_desc" : "Bank";
             ViewData["MaxSortParam"] = sortOrder == "Max" ? "max_desc" : "Max";
             ViewData["MinSortParam"] = sortOrder == "Min" ? "min_desc" : "Min";
+
             var offers = from o in _context.Offers.Include(o => o.Bank).Include(o => o.Condition).Include(o => o.OfferType)
             select o;
 

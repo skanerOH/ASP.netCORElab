@@ -11,7 +11,7 @@ namespace ISTP_LABA_3.Models
         public int OfferTypeID { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Offer type")]
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string Name { get; set; }
 

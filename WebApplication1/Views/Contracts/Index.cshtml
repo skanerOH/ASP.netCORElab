@@ -7,32 +7,83 @@
 <h1>Contracts</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a style="color:black;font-weight:bold" asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <table>
+            <tr>
+                <th>
+                    Find by client name:
+                </th>
+                <th>
+                    <input type="text" name="clNameFilter" value="@ViewData["clNameFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find by bank name:
+                </th>
+                <th>
+                    <input type="text" name="bnNameFilter" value="@ViewData["bnNameFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find by offer type:
+                </th>
+                <th>
+                    <input type="text" name="otNameFilter" value="@ViewData["otNameFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Find under date:
+                </th>
+                <th>
+                    <input type="date" name="dateFilter" value="@ViewData["dateFilter"]" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <input type="submit" value="Search" class="btn btn-default" style="color:black;font-weight:bold" />
+                </th>
+                <th>
+                    <a style="color:black" asp-action="Index">Back to full list</a>
+                </th>
+            </tr>
+        </table>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Offer.Name)
+                @Html.DisplayNameFor(model => model.Offer.OfferType.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Client.Name)
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["OfferNameSortParam"]">@Html.DisplayNameFor(model => model.Offer.Name)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Offer.Percentage)
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["BankNameSortParam"]">@Html.DisplayNameFor(model => model.Offer.Bank.Name)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Offer.Bank.Name)
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["ClientNameSortParam"]">@Html.DisplayNameFor(model => model.Client.Name)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sum)
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["PercentageSortParam"]">@Html.DisplayNameFor(model => model.Offer.Percentage)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SigningDate)
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["SumSortParam"]">@Html.DisplayNameFor(model => model.Sum)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FinishDate)
-            </th>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["SigningDateSortParam"]"> @Html.DisplayNameFor(model => model.SigningDate)</a>
+</th>
+            <th>
+                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["FinishDateSortParam"]">@Html.DisplayNameFor(model => model.FinishDate)</a>
+</th>
             <th></th>
         </tr>
     </thead>
@@ -40,16 +91,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Offer.OfferType.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Offer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Offer.Bank.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Client.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Offer.Percentage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Offer.Bank.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sum)

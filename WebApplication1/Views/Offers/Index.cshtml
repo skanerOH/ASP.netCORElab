@@ -7,7 +7,7 @@
 <h1>Offers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a style="color:black;font-weight:bold" asp-action="Create">Create New</a>
 </p>
 
 <form asp-action="Index" method="get">
@@ -50,7 +50,7 @@
                     <input type="submit" value="Search" class="btn btn-default" />
                 </th>
                 <th>
-                    <a style="color:black" asp-action="Index">Back to full list</a>
+                    <a style="color:black;font-weight:bold" asp-action="Index">Back to full list</a>
                 </th>
             </tr>
         </table>
@@ -70,10 +70,10 @@
                 @Html.DisplayNameFor(model => model.Condition)
             </th>
             <td>
-                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["MaxSortParam"]">@Html.DisplayNameFor(model => model.Condition.MaxSum)</a>
+                <a style="color:black;font-weight:bold" asp-action="Index" asp-route-sortOrder="@ViewData["MaxSortParam"]">@Html.DisplayNameFor(model => model.Condition.MaxSum)</a>
             </td>
             <td>
-                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["MinSortParam"]">@Html.DisplayNameFor(model => model.Condition.MinSum)</a>
+                <a style="color:black;font-weight:bold" asp-action="Index" asp-route-sortOrder="@ViewData["MinSortParam"]">@Html.DisplayNameFor(model => model.Condition.MinSum)</a>
             </td>
             <th>
                 @Html.DisplayNameFor(model => model.OfferType)
