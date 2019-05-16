@@ -16,7 +16,8 @@ namespace ISTP_LABA_3.Models
 
         [Required]
         [Display(Name = "Sum")]
-        public int Sum { get; set; }
+        //[Range(0, 9999999999999.99999)]
+        public float Sum { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

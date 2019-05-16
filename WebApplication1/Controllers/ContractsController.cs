@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ISTP_LABA_3.Data;
 using ISTP_LABA_3.Models;
+using System.Globalization;
 
 namespace WebApplication1.Controllers
 {
@@ -141,7 +142,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ContractID,OfferID,ClientID,Sum,SigningDate,FinishDate")] Contract contract, int oid, int sum, DateTime sgndate, DateTime fnshdate)
+        public async Task<IActionResult> Create([Bind("ContractID,OfferID,ClientID,SigningDate,FinishDate")] Contract contract, int oid, string sum, DateTime sgndate, DateTime fnshdate)
         {
             var max = (from c in _context.Offers
                      where (c.OfferID == oid)
@@ -154,7 +155,9 @@ namespace WebApplication1.Controllers
             contract.OfferID = oid;
             contract.FinishDate = fnshdate;
             contract.SigningDate = sgndate;
-            if ((ModelState.IsValid) && sum<=max && sum>=min && fnshdate>sgndate)
+            float sumf = float.Parse(sum, CultureInfo.InvariantCulture.NumberFormat);
+            contract.Sum = sumf;
+            if ((ModelState.IsValid) && (int)sumf<=max && (int)sumf>=min && fnshdate>sgndate)
             {
                 _context.Add(contract);
                 await _context.SaveChangesAsync();
@@ -188,7 +191,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContractID,OfferID,ClientID,Sum,SigningDate,FinishDate")] Contract contract)
+        public async Task<IActionResult> Edit(int id, [Bind("ContractID,OfferID,ClientID,SigningDate,FinishDate")] Contract contract, string sum)
         {
             if (id != contract.ContractID)
             {
@@ -202,8 +205,11 @@ namespace WebApplication1.Controllers
             var min = (from c in _context.Offers
                        where (c.OfferID == contract.OfferID)
                        select c.Condition.MinSum).Min();
+
+            float sumf = float.Parse(sum, CultureInfo.InvariantCulture.NumberFormat);
+            contract.Sum = sumf;
             if (ModelState.IsValid && contract.SigningDate<contract.FinishDate 
-                && max>contract.Sum && min<contract.Sum)
+                && max>=(int)contract.Sum && min<=(int)contract.Sum)
             {
                 try
                 {
