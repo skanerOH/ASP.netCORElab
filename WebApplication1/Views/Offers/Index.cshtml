@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <th>
-                    <input type="submit" value="Search" class="btn btn-default" />
+                    <input style="color:black;font-weight:bold" type="submit" value="Search" class="btn btn-default" />
                 </th>
                 <th>
                     <a style="color:black;font-weight:bold" asp-action="Index">Back to full list</a>
@@ -79,7 +79,7 @@
                 @Html.DisplayNameFor(model => model.OfferType)
             </th>
             <th>
-                <a style="color:black" asp-action="Index" asp-route-sortOrder="@ViewData["BankSortParam"]">@Html.DisplayNameFor(model => model.Bank)</a>
+                <a style="color:black;font-weight:bold" asp-action="Index" asp-route-sortOrder="@ViewData["BankSortParam"]">@Html.DisplayNameFor(model => model.Bank)</a>
             </th>
             <th></th>
         </tr>
